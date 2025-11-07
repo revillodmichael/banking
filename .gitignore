@@ -1,0 +1,57 @@
+# Node.js / React Native
+node_modules/
+npm-debug.log
+yarn-error.log
+yarn-debug.log
+*.log
+
+# Expo / React Native
+.expo/
+.expo-shared/
+*.expo
+
+# Android
+android/
+build/
+.gradle
+local.properties
+*.apk
+*.aar
+*.dex
+*.jar
+
+# iOS
+ios/
+Pods/
+Podfile.lock
+*.xcworkspace
+*.xcodeproj
+DerivedData/
+
+# Vercel
+.vercel
+.vercel_build_output
+
+# Env files (NE JAMAIS COMMIT)
+.env
+.env.local
+.env.development
+.env.production
+
+# Secrets
+private.key
+secret.txt
+wallet.json
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

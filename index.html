@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>××××××× Banking</title>
+  <script src="https://cdn.jsdelivr.net/npm/react@18/umd/react.development.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@babel/standalone/babel.min.js"></script>
+  <style>
+    body { 
+      background: #000; 
+      color: #0ff; 
+      font-family: Arial, sans-serif; 
+      text-align: center; 
+      margin: 0; 
+      padding: 20px; 
+    }
+    h1 { 
+      font-size: 3rem; 
+      text-shadow: 0 0 15px #0ff; 
+      margin: 40px 0; 
+    }
+    button { 
+      background: #ff3300; 
+      color: white; 
+      padding: 15px 30px; 
+      font-size: 1.5rem; 
+      border: none; 
+      border-radius: 10px; 
+      cursor: pointer; 
+      margin: 10px; 
+      box-shadow: 0 0 20px #ff3300; 
+    }
+    button:hover { background: #ff6600; }
+    #root { margin-top: 50px; }
+  </style>
+</head>
+<body>
+  <h1>××××××× Banking</h1>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect } = React;
+
+    const ×××××××_ADDRESS = "0x9e99408CFe5d39a791032C7460A301c32C071Acd";
+    const ABI = ["function balanceOf(address) view returns (uint256)"];
+
+    function App() {
+      const [connected, setConnected] = useState(false);
+      const [balance, setBalance] = useState("0");
+
+      const connect = async () => {
+        if (!window.ethereum) return alert("MetaMask requis");
+        await window.ethereum.request({ method: 'eth_requestAccounts' });
+        setConnected(true);
+        checkBalance();
+      };
+
+      const checkBalance = async () => {
+        const provider = new ethers.BrowserProvider(window.ethereum);
+        const contract = new ethers.Contract(×××××××_ADDRESS, ABI, provider);
+        const accounts = await provider.listAccounts();
+        if (accounts[0]) {
+          const bal = await contract.balanceOf(accounts[0].address);
+          setBalance(ethers.formatEther(bal));
+        }
+      };
+
+      useEffect(() => {
+        if (connected) checkBalance();
+      }, [connected]);
+
+      return (
+        <div>
+          {!connected ? (
+            <button onClick={connect}>CONNECTER WALLET</button>
+          ) : (
+            <div>
+              <p>Solde ××××××× : {parseFloat(balance).toFixed(2)}</p>
+              <button onClick={checkBalance}>RAFRAÎCHIR</button>
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>
